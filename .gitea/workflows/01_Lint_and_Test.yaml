@@ -1,0 +1,15 @@
+name: Lint and Test
+
+on:
+  push:
+    paths:
+      - "**/*.go"
+      - "go.mod"
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: golangci/golangci-lint-action@v3
+      - run: go test ./...

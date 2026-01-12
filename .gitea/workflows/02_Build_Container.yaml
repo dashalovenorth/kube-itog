@@ -1,0 +1,18 @@
+name: Build Container
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ vars.DOCKER_USERNAME }} --password-stdin
+      - run: |
+          for s in root api info login; do
+            docker build -t ${{ vars.DOCKER_USERNAME }}/$s-service:latest ./cmd/$s-service
+            docker push ${{ vars.DOCKER_USERNAME }}/$s-service:latest
+          done

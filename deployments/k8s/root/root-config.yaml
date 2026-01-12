@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: root-config
+  namespace: kube
+data:
+  ROOT_APP_NAME: "root-service"
+  ROOT_BIND_PORT: "8080"
